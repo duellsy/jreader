@@ -1,0 +1,8 @@
+================================================
+jReader
+
+by @duellsy
+================================================
+
+A basic RSS / XML reader and parse using jQuery and PHP.
+Displays a simple, on demand RSS digest.
