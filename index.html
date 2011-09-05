@@ -1,13 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 	<head>
+		
+		<title>jReader - A minimal jQuery and PHP based RSS reader</title>
+		
+		<link rel="stylesheet" href="bootstrap-1.2.0.css">
+	
 		<script type="text/javascript" src="http://www.google.com/jsapi"></script> 
-		<script type="text/javascript">google.load("jquery", "1.4.0");</script> 
+		<script type="text/javascript">google.load("jquery", "1.6.0");</script> 
 		
 		<script type="text/javascript">
 			$().ready(function(){
 				$('#feeds li a').click(function(event){
-					$('h2#title').text('Loading...');
+					$('h2#title').text('Loading items...');
+					$('#articles').html('');					
 					$('ul#articles').empty();
 					$feed_title = $(this).html();
 					
@@ -15,21 +21,25 @@
 					event.stopPropagation();
 					$.get('rss_grab.php?url=' + url, function(data){  
 						$('h2#title').text($feed_title);
-	
-				        $(data).find('item').each(function(){  
+						
+				        $(data).find('item,entry').each(function(){  
 				  
 							var $article = $(this);  
 							var title = $article.find("title").text();
 							var description = $article.find("description").text();
+
+							if(description == null || description == ''){
+								description = $article.find("summary").text();
+							}
 							var link = $article.find("link").text();
 							
-							var new_item = '<li>';  
-							new_item += '<p class="title">' + title + '</p>';  
+							var new_item = '<div class="clearfix">';
+							new_item += '<h3 class="title">' + title + '</h3>';
 							new_item += '<p class="desdription">' + description + '</p>';  
 							new_item += '<p><a href=" ' + link + '" target="_blank">view full article</a></p>' ;  
-							new_item += '</li>';  
+							new_item += '</div>';
 								  
-							$('ul#articles').append($(new_item));
+							$('#articles').append($(new_item));
 				  
 				        }); 
 				       
@@ -40,12 +50,32 @@
 		</script>
 	</head>
 	<body>
-		<h3>Feeds</h3>
-		<ul id="feeds">
-			<li><a href="http://www.subooa.com.au/blog/feed">Subooa Blog</a></li>
-			<li><a href="http://feeds.feedburner.com/TechCrunch">Techcrunch</a></li>
-		</ul>
-		<h2 id="title"></h2>
-		<ul id="articles"></ul>
+		<div class="container-fluid">
+		
+			<div class="page-header">
+				<h1>jReader <small>a minimal jQuery and PHP based RSS reader</small></h1>
+			</div>
+		
+				<div class="sidebar">
+					<h2>Feeds</h2>
+					<ul id="feeds" >
+						<li><a href="http://www.subooa.com.au/blog/feed">Subooa Blog</a></li>
+						<li><a href="http://feeds.feedburner.com/TechCrunch">Techcrunch</a></li>
+						<li><a href="http://minimalmac.com/rss">Minimal Mac</a></li>
+						<li><a href="http://rss1.smashingmagazine.com/feed/">Smashing Magazine</a></li>
+						<li><a href="http://feeds.feedburner.com/Noupe">Noupe Design Blog</a></li>
+					</ul>
+				</div>
+			
+				<div class="content">
+					<h2 id="title"></h2>
+					<div id="articles">
+						<div class="alert-message block-message warning">
+					        <p><strong>Welcome to the jReader demo!</strong> Click on a feed in the left column to start reading the news.</p>
+				      </div>
+					</div>
+				</div>
+				
+		</div>
 	</body>
 </html>
