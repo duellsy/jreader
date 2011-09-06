@@ -33,6 +33,7 @@
 							<li><a href="http://minimalmac.com/rss">Minimal Mac</a></li>
 							<li><a href="http://rss1.smashingmagazine.com/feed/">Smashing Magazine</a></li>
 							<li><a href="http://feeds.feedburner.com/Noupe">Noupe Design Blog</a></li>
+							<li><a href="https://github.com/duellsy/jreader/commits/master.atom">jReader commit history</a></li>
 						</ul>
 					
 						<h3>What is jReader?</h3>
